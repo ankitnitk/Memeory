@@ -21,6 +21,26 @@
     <string name="folder_already_added">That folder is already added.</string>
     <string name="folder_failed">Couldn\'t open that folder.</string>
 
+    <!-- Search -->
+    <string name="search_hint">Search your memes</string>
+    <string name="clear_search">Clear search</string>
+    <string name="no_results_title">Nothing for “%1$s”</string>
+    <string name="no_results_body">Try a shorter word, or a different word from the meme.</string>
+    <string name="no_results_still_reading">Memeory is still reading the text in some memes. Try again in a moment.</string>
+
+    <!-- Meme detail -->
+    <string name="back">Back</string>
+    <string name="text_in_meme">Text in this meme</string>
+    <string name="text_reading">Reading the text…</string>
+    <string name="text_none">No text found in this meme.</string>
+    <string name="missing_explained">The original file was deleted or moved. Only the small preview is left.</string>
+    <string name="info_kept">Kept as</string>
+    <string name="info_kept_copy">A copy inside Memeory</string>
+    <string name="info_kept_folder">In your folder “%1$s”</string>
+    <string name="info_size">Size</string>
+    <string name="info_file">File</string>
+    <string name="info_added">Added</string>
+
     <!-- Share card -->
     <string name="saving">Saving to Memeory…</string>
     <string name="import_nothing">No image found to save.</string>
@@ -28,6 +48,10 @@
     <plurals name="preparing_memes">
         <item quantity="one">Preparing %d meme…</item>
         <item quantity="other">Preparing %d memes…</item>
+    </plurals>
+    <plurals name="reading_text">
+        <item quantity="one">Reading the text in %d meme…</item>
+        <item quantity="other">Reading the text in %d memes…</item>
     </plurals>
     <plurals name="import_added">
         <item quantity="one">Saved %d meme</item>

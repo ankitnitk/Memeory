@@ -17,7 +17,7 @@ Memeory fixes that. You save memes into it once, and later you just type a word 
 ## What it will do
 
 - **Save memes easily.** Share an image from WhatsApp, Chrome, Instagram, Reddit or any other app straight into Memeory. You can also pick many images at once from your gallery, or point it at a folder like *WhatsApp Images* or *Downloads*.
-- **Read the words in each meme.** Memeory reads the text printed on the image, so you can search for it later. This happens on your phone, with no internet.
+- **Read the words in each meme.** Memeory reads the text printed on the image, so you can search for it later. This happens on your phone, with no internet. It works for languages written in English letters (English, Swahili, Sheng, Hinglish). Hindi written in Devanagari is planned.
 - **"Use this when..." notes.** You can add a short note such as *"when someone is late"* or *"reply to 'where are you'"*, so you can search by the situation, not only by the words in the picture. Notes are optional, so saving still takes one tap.
 - **Instant search.** Results show up as you type. Typing *"mond"* already finds *"Monday"*. Memes you use often and your favourites come first.
 - **Send it back fast.** Tap a meme, then **Share**, **Send to WhatsApp**, or **Copy**.
@@ -48,6 +48,7 @@ Every meme also gets a small preview picture, so the grid scrolls smoothly even 
 ## Your privacy
 
 - **No internet permission.** The app doesn't ask Android for internet access, so it can't send anything anywhere. Anyone can check this on the app's Play Store page or in Android settings.
+- **About "view network connections":** Android lists this one permission for Memeory. It only lets an app see *whether* the phone is online; it can't send or receive anything. Google's text-reading tool (ML Kit), which Memeory uses to read the words in memes, includes a small part that tries to send anonymous usage statistics to Google. Without internet permission it can never send them, but newer Android versions crash an app that has this part without the "view network connections" permission. So the permission stays, and your data still never leaves the phone.
 - **No account, no login, no server.**
 - **No ads, no analytics, no tracking.**
 - Everything stays on your phone.
@@ -72,7 +73,7 @@ The full privacy policy will be published at `docs/privacy-policy.html`.
 |---|---|---|
 | 0 | Check which similar apps already exist | ✅ Done |
 | 1 | Project setup, saving memes (share, gallery, folders), meme grid | ✅ Done |
-| 2 | Reading text in memes, search, meme detail screen | Planned |
+| 2 | Reading text in memes, search, meme detail screen | ✅ Done |
 | 3 | Share, Send to WhatsApp, Copy, notes, tags, favourites | Planned |
 | 4 | Meme keyboard | Planned |
 | 5 | Widget, Quick Settings button, backup, welcome screens, settings | Planned |

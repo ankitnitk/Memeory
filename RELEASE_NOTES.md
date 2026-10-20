@@ -4,6 +4,22 @@ Newest changes at the top. Written in plain language.
 
 ---
 
+## Test build 1.0.0: reading and searching memes (20 Oct 2026)
+
+**New**
+- **Memeory reads the words in your memes.** After you add memes, it reads the text printed on each one in the background, with no internet. A banner shows how many are left. New memes get their preview first, so they appear in the grid right away.
+- **Search as you type.** The search bar at the top finds memes by the words in them. Partial words work: "mond" finds "Monday". Several words find memes that have all of them. Upper or lower case doesn't matter.
+- **Meme detail screen.** Tap a meme to see it big (GIFs play), the text Memeory found in it (long-press to copy words), where it's kept, its size and when it was added.
+- **Missing originals.** If a folder meme was deleted from your phone, the detail screen says so and shows the saved preview instead.
+- The Back button clears the search before leaving the app.
+
+**Good to know**
+- Text reading works for languages written in English letters (English, Swahili, Sheng, Hinglish). Hindi in Devanagari script comes later.
+- If you installed the first test build, memes saved in it are cleared once. This happens only for test builds; future updates will always keep your memes.
+- Android now lists "view network connections" for Memeory. It can't send anything, and the app still has no internet permission. The README explains why it's needed.
+
+---
+
 ## Test build 1.0.0: saving memes (20 Oct 2026)
 
 **New**

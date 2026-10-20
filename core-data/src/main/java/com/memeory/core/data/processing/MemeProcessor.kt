@@ -13,17 +13,21 @@ import kotlinx.coroutines.withContext
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.InputStream
+import kotlin.coroutines.cancellation.CancellationException
 
 /**
- * The background steps each new meme goes through.
- * Phase 1: make a thumbnail. Phase 2 adds reading the text in the image.
+ * The background steps each new meme goes through:
+ *  1. make a small preview (thumbnail)  -> Stage.THUMBNAIL_READY
+ *  2. read the text printed on it       -> Stage.DONE
  */
 class MemeProcessor(
     private val context: Context,
     private val db: MemeoryDatabase,
     private val files: MemeFiles,
 ) {
-    suspend fun process(meme: Meme) = withContext(Dispatchers.IO) {
+    private val textReader = TextReader()
+
+    suspend fun makeThumbnail(meme: Meme) = withContext(Dispatchers.IO) {
         val dao = db.memeDao()
         val result = runCatching {
             Thumbnailer.create({ openOriginal(meme) }, meme.mimeType, files.thumbnailFile(meme.id))
@@ -47,6 +51,26 @@ class MemeProcessor(
                 Log.w(TAG, "Could not read folder meme ${meme.id}", result.exceptionOrNull())
                 dao.markFailed(meme.id, Stage.FAILED, missing = result.exceptionOrNull() is FileNotFoundException)
             }
+        }
+    }
+
+    suspend fun readText(meme: Meme) = withContext(Dispatchers.IO) {
+        val dao = db.memeDao()
+        try {
+            val text = textReader.read({ openOriginal(meme) }, meme.mimeType)
+            dao.setText(meme.id, text, Stage.DONE)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: FileNotFoundException) {
+            // The original was deleted. Keep the meme (its preview still shows),
+            // mark it missing, and don't try again.
+            dao.setText(meme.id, null, Stage.DONE)
+            dao.markFailed(meme.id, Stage.DONE, missing = true)
+        } catch (e: Throwable) {
+            // Unreadable image, or out of memory on a giant one. Mark it done
+            // with no text so it isn't retried forever.
+            Log.w(TAG, "Could not read text in meme ${meme.id}", e)
+            dao.setText(meme.id, null, Stage.DONE)
         }
     }
 

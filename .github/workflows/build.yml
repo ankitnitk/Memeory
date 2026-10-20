@@ -46,6 +46,15 @@ jobs:
           fi
           echo "OK: no INTERNET permission."
 
+      # The database layout files, kept in git so future upgrades are safe.
+      - name: Upload database schemas
+        uses: actions/upload-artifact@v4
+        with:
+          name: room-schemas
+          path: core-data/schemas
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Upload lint report
         if: always()
         uses: actions/upload-artifact@v4

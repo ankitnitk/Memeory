@@ -8,6 +8,7 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.memeory.core.data.MemeoryCore
+import com.memeory.core.data.db.Stage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -20,7 +21,7 @@ object MemeWork {
     private const val PROCESS = "memeory-process"
     private const val SCAN = "memeory-scan-folders"
 
-    /** Makes thumbnails (and, from Phase 2, reads text) for new memes. */
+    /** Makes thumbnails and reads the text of new memes. */
     fun enqueueProcessing(context: Context) {
         WorkManager.getInstance(context).enqueueUniqueWork(
             PROCESS,
@@ -54,18 +55,32 @@ class ProcessMemesWorker(context: Context, params: WorkerParameters) : Coroutine
     override suspend fun doWork(): Result {
         val core = MemeoryCore.get(applicationContext)
         while (!isStopped) {
-            val batch = core.memes.pending(BATCH_SIZE)
-            if (batch.isEmpty()) break
-            for (meme in batch) {
+            // Previews first, so new memes appear in the grid quickly...
+            val needThumbnail = core.memes.pendingAt(Stage.NEW, THUMBNAIL_BATCH)
+            if (needThumbnail.isNotEmpty()) {
+                for (meme in needThumbnail) {
+                    if (isStopped) break
+                    core.processor.makeThumbnail(meme)
+                }
+                continue
+            }
+            // ...then the slower text reading. Small batches, so a freshly
+            // shared meme never waits long for its preview.
+            val needText = core.memes.pendingAt(Stage.THUMBNAIL_READY, TEXT_BATCH)
+            if (needText.isEmpty()) break
+            for (meme in needText) {
                 if (isStopped) break
-                core.processor.process(meme)
+                core.processor.readText(meme)
             }
         }
+        // If Android stops this job early (it has a time limit), it is run
+        // again later and carries on where it left off.
         return Result.success()
     }
 
     private companion object {
-        const val BATCH_SIZE = 25
+        const val THUMBNAIL_BATCH = 25
+        const val TEXT_BATCH = 5
     }
 }
 
