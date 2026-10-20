@@ -12,6 +12,7 @@ Newest changes at the top. Written in plain language.
 - **Meme detail screen.** Tap a meme to see it big (GIFs play), the text Memeory found in it (long-press to copy words), where it's kept, its size and when it was added.
 - **Missing originals.** If a folder meme was deleted from your phone, the detail screen says so and shows the saved preview instead.
 - The Back button clears the search before leaving the app.
+- Built for Android 16, as Google Play now requires. It still works on Android 8.0 and newer.
 
 **Good to know**
 - Text reading works for languages written in English letters (English, Swahili, Sheng, Hinglish). Hindi in Devanagari script comes later.
