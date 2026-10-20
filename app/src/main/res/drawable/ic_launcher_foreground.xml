@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A purple chat bubble with a grin, on the yellow background. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/ic_launcher_bubble"
+        android:pathData="M40,32 H68 A10,10 0 0 1 78,42 V60 A10,10 0 0 1 68,70 H50 L38,80 L40,70 A10,10 0 0 1 30,60 V42 A10,10 0 0 1 40,32 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M44,48 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 Z M64,48 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 Z" />
+    <path
+        android:pathData="M42,56 Q54,67 66,56"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="4" />
+</vector>

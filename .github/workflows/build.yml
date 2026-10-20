@@ -1,0 +1,91 @@
+name: Build Memeory
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write   # needed to publish the test APK as a GitHub Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: Build test APK, run tests and lint
+        run: gradle :app:assembleDebug :core-data:testDebugUnitTest :app:lintDebug --no-daemon --stacktrace
+
+      # Privacy promise: the app must never ask for internet access.
+      # This step fails the build if any library sneaks the permission in.
+      - name: Privacy check (no INTERNET permission)
+        run: |
+          AAPT2="$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)aapt2"
+          "$AAPT2" dump permissions app/build/outputs/apk/debug/app-debug.apk | tee permissions.txt
+          if grep -q "android.permission.INTERNET" permissions.txt; then
+            echo "::error::INTERNET permission found in the APK. Memeory must stay offline."
+            exit 1
+          fi
+          echo "OK: no INTERNET permission."
+
+      - name: Upload lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results-debug.html
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Read version
+        id: ver
+        run: |
+          v=$(grep -oP 'versionName = "\K[^"]+' app/build.gradle.kts)
+          echo "name=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Collect APK
+        run: |
+          mkdir -p out
+          cp app/build/outputs/apk/debug/app-debug.apk "out/Memeory-v${{ steps.ver.outputs.name }}-test.apk"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Memeory-test-APK
+          path: "out/Memeory-v${{ steps.ver.outputs.name }}-test.apk"
+          retention-days: 30
+
+      - name: Publish "Latest test build" release
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Memeory v${{ steps.ver.outputs.name }} (test build)
+          body: |
+            Automatic test build from the `main` branch.
+            Commit: ${{ github.sha }}
+
+            Download `Memeory-v${{ steps.ver.outputs.name }}-test.apk` below and install it on your phone (allow "Install unknown apps").
+            This is a test build. It installs as "Memeory" next to any future Play Store version.
+          files: "out/Memeory-v${{ steps.ver.outputs.name }}-test.apk"
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

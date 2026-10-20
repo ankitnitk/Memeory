@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screens are drawn with Jetpack Compose; this only sets the colour shown
+         for the split second before the first screen appears. -->
+    <style name="Theme.Memeory" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <!-- See-through, so the "Saved!" card floats over the app you shared from. -->
+    <style name="Theme.Memeory.Share" parent="android:Theme.Translucent.NoTitleBar" />
+</resources>

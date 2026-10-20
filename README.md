@@ -4,7 +4,7 @@
 
 Memeory (meme + memory) is a free Android app that keeps your favourite memes in one place, so you can find the right one in seconds when a chat needs it.
 
-> 🚧 **Status: being built.** Nothing is ready to install yet. See [RELEASE_NOTES.md](RELEASE_NOTES.md) for progress.
+> 🚧 **Status: being built.** An early test version is available (see *Try the test version* below). See [RELEASE_NOTES.md](RELEASE_NOTES.md) for progress.
 
 ---
 
@@ -26,6 +26,25 @@ Memeory fixes that. You save memes into it once, and later you just type a word 
 - **Favourites and tags** to keep things tidy.
 - **Full backup.** Export everything (images, notes, tags) to a single ZIP file, and import it back on any phone. Your memes are never locked inside the app.
 
+## How Memeory stores your memes
+
+There are two ways memes get in, and they are kept slightly differently:
+
+| How you add it | What Memeory does | What happens if you delete the photo from your gallery |
+|---|---|---|
+| **Share** it from another app, or **pick** it from your gallery | Keeps its **own copy**, inside the app | Nothing. The meme stays in Memeory. |
+| **Add a folder** (like WhatsApp Images) | **Doesn't copy.** Remembers where each meme is, so no extra space is used | The meme is marked with a 🔗 "missing" badge in Memeory |
+
+Why the difference? When another app shares an image, Android only lets Memeory read it for a moment, so it must be copied. A folder you add stays readable, so a copy isn't needed.
+
+Every meme also gets a small preview picture, so the grid scrolls smoothly even with thousands of memes.
+
+## Try the test version
+
+1. On your Android phone, open the [latest test build](https://github.com/ankitnitk/Memeory/releases/tag/latest).
+2. Download the `.apk` file and open it. Android will ask you to allow installing apps from your browser. Allow it once.
+3. Open Memeory, or share any image from another app and choose **Save to Memeory**.
+
 ## Your privacy
 
 - **No internet permission.** The app doesn't ask Android for internet access, so it can't send anything anywhere. Anyone can check this on the app's Play Store page or in Android settings.
@@ -44,14 +63,15 @@ The full privacy policy will be published at `docs/privacy-policy.html`.
 - Written in **Kotlin** with **Jetpack Compose** (Google's modern way to build Android screens).
 - Text reading uses **Google ML Kit**, packed inside the app so it works offline.
 - Memes and their text are stored in a small database on the phone (**Room**), with fast word search.
-- The app is built automatically on GitHub (GitHub Actions), so you don't need Android Studio to get an installable file.
+- The app is built automatically on GitHub (GitHub Actions), so you don't need Android Studio to get an installable file. Each build also checks that the app does **not** have internet permission, and fails if it ever does.
+- The code is split in two parts: `app` (the screens) and `core-data` (the meme database, storage and import). The meme keyboard will reuse `core-data`.
 
 ## Roadmap
 
 | Phase | What's in it | Status |
 |---|---|---|
 | 0 | Check which similar apps already exist | ✅ Done |
-| 1 | Project setup, saving memes (share, gallery, folders), meme grid | ⏳ Next |
+| 1 | Project setup, saving memes (share, gallery, folders), meme grid | ✅ Done |
 | 2 | Reading text in memes, search, meme detail screen | Planned |
 | 3 | Share, Send to WhatsApp, Copy, notes, tags, favourites | Planned |
 | 4 | Meme keyboard | Planned |

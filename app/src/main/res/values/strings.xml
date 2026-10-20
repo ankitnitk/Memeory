@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Memeory</string>
+    <string name="tagline">The right meme, right on cue.</string>
+    <string name="share_target_label">Save to Memeory</string>
+
+    <!-- Home -->
+    <string name="add_memes">Add memes</string>
+    <string name="add_memes_title">Add memes</string>
+    <string name="from_gallery">From your gallery</string>
+    <string name="from_gallery_hint">Pick as many as you like. Memeory keeps its own copy.</string>
+    <string name="from_folder">Add a folder</string>
+    <string name="from_folder_hint">For example WhatsApp Images or Downloads. Memeory checks it for new memes each time you open the app.</string>
+    <string name="empty_title">No memes yet</string>
+    <string name="empty_body">Share a meme from WhatsApp, Chrome or any app and choose Memeory.\nOr tap Add memes below.</string>
+    <string name="checking_folders">Checking your folders for new memes…</string>
+    <string name="meme_description">Meme</string>
+    <string name="gif_badge">GIF</string>
+    <string name="missing_original">The original file was deleted or moved</string>
+    <string name="folder_added">Folder added. Looking for memes…</string>
+    <string name="folder_already_added">That folder is already added.</string>
+    <string name="folder_failed">Couldn\'t open that folder.</string>
+
+    <!-- Share card -->
+    <string name="saving">Saving to Memeory…</string>
+    <string name="import_nothing">No image found to save.</string>
+
+    <plurals name="preparing_memes">
+        <item quantity="one">Preparing %d meme…</item>
+        <item quantity="other">Preparing %d memes…</item>
+    </plurals>
+    <plurals name="import_added">
+        <item quantity="one">Saved %d meme</item>
+        <item quantity="other">Saved %d memes</item>
+    </plurals>
+    <plurals name="import_duplicates">
+        <item quantity="one">%d was already saved</item>
+        <item quantity="other">%d were already saved</item>
+    </plurals>
+    <plurals name="import_failed">
+        <item quantity="one">%d couldn\'t be read</item>
+        <item quantity="other">%d couldn\'t be read</item>
+    </plurals>
+</resources>
