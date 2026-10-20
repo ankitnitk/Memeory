@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.memeory.app"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         // The app's permanent ID on the Play Store. Can never change after publishing.
@@ -14,7 +14,7 @@ android {
         // the com.memeory.app folders; that's fine and invisible to users.
         applicationId = "com.memeoryapp.android"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0.0"
     }
