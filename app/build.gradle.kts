@@ -9,7 +9,10 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.memeory.app" // Can never change after publishing.
+        // The app's permanent ID on the Play Store. Can never change after publishing.
+        // ("com.memeory.app" was already taken.) The code itself still lives in
+        // the com.memeory.app folders; that's fine and invisible to users.
+        applicationId = "com.memeoryapp.android"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

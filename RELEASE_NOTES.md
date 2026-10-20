@@ -19,6 +19,9 @@ Newest changes at the top. Written in plain language.
 - The app has no internet permission. Every build is checked automatically to make sure.
 - Memeory's data is not uploaded to Google's cloud backup. When you set up a new Android 12+ phone with a cable or direct phone-to-phone transfer, your memes can come along.
 
+**Behind the scenes**
+- The app's permanent Play Store ID is `com.memeoryapp.android`, because `com.memeory.app` was already taken. Test builds use `com.memeoryapp.android.debug`, so they can sit next to the Play Store version.
+
 **Not yet**
 - Tapping a meme does nothing yet. Searching, sharing memes back out, notes and tags come in the next phases.
 
